@@ -32,7 +32,7 @@ public class GraphHelper {
         List<Node> nodes = new ArrayList<>();
         try {
             for (File f : files) {
-                if (f.getName().contains(".csv")) {
+                if (f.getName().toLowerCase().contains(".csv")) {
                     System.out.println("parse file " + f.getAbsolutePath());
                     nodes.addAll(doQuery(f.getAbsolutePath(), source));
                 }
@@ -56,7 +56,7 @@ public class GraphHelper {
         List<Node> nodes = new ArrayList<>();
         try {
             for (File f : files) {
-                if (f.getName().contains(".csv")) {
+                if (f.getName().toLowerCase().contains(".csv")) {
                     System.out.println("parse file " + f.getAbsolutePath());
                     switch (type) {
                         case TYPE_MULTI:

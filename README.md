@@ -1,6 +1,6 @@
-# 基于SpringBoot的csv节点可视化工具
+# 基于SpringBoot的csv数据可视化工具
 
-根据本地csv文件，将文件中的各个节点通过图谱的方式可视化展现。
+根据本地csv文件，将文件中的各个数据通过图谱的方式可视化展现。
 
 # 系统环境
 
@@ -19,7 +19,13 @@
 
 首页如下图：
 
-![首页](images/index.jpg)
+![首页](files/index.jpg)
+
+图谱显示结果如下：
+
+![Graph](files/graph.jpg)
+
+测试数据路径：`files/csv数据示例.CSV`。
 
 ## 输入框
 
@@ -49,7 +55,7 @@ public class Node {
 
 根据按钮类型的不同，提取的规则也不一样：
 
-- 检索：通过对比关键词与csv文件中节点是否一致，若一致便将该节点添加到List中。
+- 检索：通过对比关键词与csv文件中数据单元是否一致，若一致便将该数据添加到List中。
 
     ```Java
     private static List<Node> doQuery(String path, String source) throws Exception {

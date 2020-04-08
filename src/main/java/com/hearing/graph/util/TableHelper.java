@@ -51,13 +51,13 @@ public class TableHelper {
         
         Map<String, List<String>> classMap = new TreeMap<>();
         for (File classFile: classFiles) {
-            if (classFile.getName().endsWith(".csv")) {
+            if (classFile.getName().toLowerCase().endsWith(".csv")) {
                 classMap.put(Util.getName(classFile.getName()), parseClassFile(classFile));
             }
         }
 
         for (File personFile: personFiles) {
-            if (!personFile.getName().endsWith(".csv")) {
+            if (!personFile.getName().toLowerCase().endsWith(".csv")) {
                 continue;
             }
 
