@@ -23,14 +23,20 @@
 
     <script>
         function query() {
-            var path = document.getElementById("path").value
-            var key = document.getElementById("key").value
-            window.open("query?path=" + encodeURIComponent(path) + "&key=" + key)
+            const path = document.getElementById("path").value;
+            const key = document.getElementById("key").value;
+            window.open("query?path=" + encodeURIComponent(path) + "&key=" + key);
+        }
+
+        function doMatch() {
+            const path = document.getElementById("path").value;
+            const key = document.getElementById("match_key").value;
+            window.open("match?path=" + encodeURIComponent(path) + "&key=" + key);
         }
 
         function graph(type) {
-            var path = document.getElementById("path").value
-            window.open("graph?path=" + encodeURIComponent(path) + "&type=" + type)
+            const path = document.getElementById("path").value;
+            window.open("graph?path=" + encodeURIComponent(path) + "&type=" + type);
         }
     </script>
 </head>
@@ -61,6 +67,16 @@
                     <div class="col-sm-4" style="margin:20px 0px 0px 0px;">
                         <button type="button" style="font-family: MyFont;height: 50px;"
                          class="btn btn-primary btn-block btn-lg" onclick="query()">检索</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-8" style="margin:20px 0px 0px 0px;">
+                        <input id="match_key" class="form-control" style="height: 50px;" placeholder="限定关键字">
+                    </div>
+                    <div class="col-sm-4" style="margin:20px 0px 0px 0px;">
+                        <button type="button" style="font-family: MyFont;height: 50px;"
+                         class="btn btn-primary btn-block btn-lg" onclick="doMatch()">检索</button>
                     </div>
                 </div>
 

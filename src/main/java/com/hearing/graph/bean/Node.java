@@ -11,4 +11,14 @@ public class Node {
         this.target = target;
         this.rela = rela;
     }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "source='" + source + '\'' +
+                ", target='" + target + '\'' +
+                ", rela='" + rela + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

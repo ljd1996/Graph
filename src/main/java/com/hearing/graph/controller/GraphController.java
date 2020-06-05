@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.hearing.graph.util.GraphHelper;
 import com.hearing.graph.util.TableHelper;
 import com.hearing.graph.bean.Node;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -20,18 +21,28 @@ public class GraphController {
 
     @GetMapping("query")
     public String query(Map<String, Object> map,
-        @RequestParam(value = "path", required = true) String path,
-        @RequestParam(value = "key", required = false) String key) {
+                        @RequestParam(value = "path", required = true) String path,
+                        @RequestParam(value = "key", required = false) String key) {
         System.out.println("path = " + path + ", key = " + key);
         List<Node> nodes = GraphHelper.query(path, key);
         map.put("data", nodes == null ? new ArrayList<>() : nodes);
         return "graph";
     }
 
+    @GetMapping("match")
+    public String match(Map<String, Object> map,
+                        @RequestParam(value = "path", required = true) String path,
+                        @RequestParam(value = "key", required = false) String key) {
+        System.out.println("path = " + path + ", key = " + key);
+        List<Node> nodes = GraphHelper.match(path, key);
+        map.put("data", nodes == null ? new ArrayList<>() : nodes);
+        return "graph";
+    }
+
     @GetMapping("graph")
     public String graph(Map<String, Object> map,
-    @RequestParam(value = "path", required = true) String path,
-    @RequestParam(value = "type", required = false) Integer type) {
+                        @RequestParam(value = "path", required = true) String path,
+                        @RequestParam(value = "type", required = false) Integer type) {
         System.out.println("path = " + path + ", type = " + type);
         if (type == null) {
             type = GraphHelper.TYPE_MULTI;
