@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import com.hearing.graph.bean.Node;
 import com.hearing.graph.util.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,19 +23,22 @@ public class GraphHelper {
     private static final int TYPE_MATCH = 3;
 
     public static List<Node> match(String path, String source) {
+        if (Util.isEmpty(source)) {
+            return query(path, source);
+        }
         return handleWord(path, source, TYPE_MATCH);
     }
 
     public static List<Node> query(String path, String source) {
+        if (Util.isEmpty(source)) {
+            return doGraph(path, TYPE_MULTI);
+        }
         return handleWord(path, source, TYPE_QUERY);
     }
 
-    public static List<Node> handleWord(String path, String source, int type) {
+    public static List<Node> handleWord(String path, @NotNull String source, int type) {
         if (Util.isEmpty(path)) {
             return null;
-        }
-        if (Util.isEmpty(source)) {
-            return doGraph(path, TYPE_MULTI);
         }
 
         File dir = new File(path);
@@ -122,17 +126,19 @@ public class GraphHelper {
         String[] title = tree[0];
         List<Node> nodes = new ArrayList<>();
         String[] sources = source.split(" ");
-        for (int row = 1; row < tableInfo.row; row++)
-            for (int i = 0; i < tableInfo.column; i++)
-                for (int j = 0; j < tableInfo.column; j++) {
-                    if (i == j || Util.isEmpty(tree[row][i]) || Util.isEmpty(tree[row][j])
-                            || title.length <= j || Util.isEmpty(title[j]) || !inMatch(tree, row, i, j, sources)) {
-                        continue;
+
+        for (int i = 1; i < tableInfo.row; i++)
+            for (int j = 0; j < tableInfo.column; j++)
+                for (int ii = 1; ii < tableInfo.row; ii++)
+                    for (int jj = 0; jj < tableInfo.column; jj++) {
+                        if ((i == ii && j == jj) || Util.isEmpty(tree[i][j]) || Util.isEmpty(tree[ii][jj])
+                                || title.length <= jj || Util.isEmpty(title[jj]) || !Util.contains(sources, tree[i][j])) {
+                            continue;
+                        }
+                        Node node = new Node(tree[i][j], tree[ii][jj], title[jj]);
+                        System.out.println("Add node: " + node);
+                        nodes.add(node);
                     }
-                    Node node = new Node(tree[row][i], tree[row][j], title[j]);
-                    System.out.println("Add node: " + node);
-                    nodes.add(node);
-                }
 
         return nodes;
     }
